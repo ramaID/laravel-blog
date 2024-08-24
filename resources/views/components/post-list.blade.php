@@ -23,8 +23,7 @@
                     <p>Published at <time datetime="{{ $post->published_at }}">{{ $post->published_at->diffForHumans() }}</time></p>
                 </div>
                 <div class="mt-4 text-sm text-gray-500">
-                    {{-- TODO: buatkan sebuah query untuk menampilkan jumlah komentar tiap posts --}}
-                    300 komentar
+                    {{ $post->comments->count() }} komentar
                 </div>
                 <div class="mt-4">
                     <a href="#" class="text-sm font-semibold text-indigo-600 hover:text-indigo-500">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class ShowPostsPageController extends Controller
@@ -13,7 +14,8 @@ class ShowPostsPageController extends Controller
     public function __invoke(Request $request)
     {
         $years = Post::query()
-            ->with('author')
+            ->select('id', 'author_id', 'title', 'published_at')
+            ->with(['author', 'comments' => fn (Builder $query) => $query->select('id')])
             ->whereNotNull('published_at')
             ->latest('id')
             ->get()
