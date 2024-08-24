@@ -20,8 +20,7 @@ class UserSeeder extends Seeder
         for ($i=0; $i < 1_000; $i++) {
             $data[] = User::factory()->make()->toArray() + compact('password');
         }
-        $chunkData = array_chunk($data, 100);
-        dd(count($data), count($chunkData));
+        array_chunk($data, 100);
 
         foreach (array_chunk($data, 100) as $chunkUsers) {
             User::query()->insert($chunkUsers);

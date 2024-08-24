@@ -18,13 +18,13 @@ class PostSeeder extends Seeder
         $usersID = User::query()->pluck('id')->toArray();
         $data = [];
 
-        for ($i=0; $i < 3_000; $i++) {
+        for ($i=0; $i < 400; $i++) {
             $data[] = Post::factory()->make([
                 'author_id' => fake()->randomElement($usersID),
             ])->toArray() + ['id' => Str::ulid()];
         }
 
-        foreach (array_chunk($data, 300) as $chunkPosts) {
+        foreach (array_chunk($data, 100) as $chunkPosts) {
             Post::query()->insert($chunkPosts);
         }
     }

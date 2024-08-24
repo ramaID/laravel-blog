@@ -19,7 +19,7 @@ class PostFactory extends Factory
         return [
             'title' => $this->faker->sentence,
             'type' => $this->faker->randomElement(['note', 'snippet', 'bookmark']),
-            'body' => $this->faker->realText(2_000),
+            'body' => $this->faker->realText(10_000),
             'published_at' => $this->faker->optional()->dateTime,
         ];
     }
