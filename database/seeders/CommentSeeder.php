@@ -7,7 +7,6 @@ use App\Models\User;
 use App\Models\Comment;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class CommentSeeder extends Seeder
 {
@@ -20,11 +19,13 @@ class CommentSeeder extends Seeder
         $posstID = Post::query()->pluck('id')->toArray();
         $data = [];
 
-        for ($i=0; $i < 3_000; $i++) {
+        for ($i=0; $i < 60_000; $i++) {
             $id = Str::ulid();
             $data[] = Comment::factory()->make([
                 'author_id' => fake()->randomElement($usersID),
                 'post_id' => fake()->randomElement($posstID),
+                'created_at' => now(),
+                'updated_at' => now(),
             ])->toArray() + compact('id');
         }
 

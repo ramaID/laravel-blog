@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
 
 class ShowPostsPageController extends Controller
@@ -15,7 +15,7 @@ class ShowPostsPageController extends Controller
     {
         $years = Post::query()
             ->select('id', 'author_id', 'title', 'published_at')
-            ->with(['author', 'comments' => fn (Builder $query) => $query->select('id')])
+            ->with(['author', 'comments' => fn (HasMany $query) => $query->select('id')])
             ->whereNotNull('published_at')
             ->latest('id')
             ->get()

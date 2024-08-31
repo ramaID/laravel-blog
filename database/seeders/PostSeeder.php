@@ -6,7 +6,6 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class PostSeeder extends Seeder
 {
@@ -18,9 +17,11 @@ class PostSeeder extends Seeder
         $usersID = User::query()->pluck('id')->toArray();
         $data = [];
 
-        for ($i=0; $i < 400; $i++) {
+        for ($i=0; $i < 200; $i++) {
             $data[] = Post::factory()->make([
                 'author_id' => fake()->randomElement($usersID),
+                'created_at' => now(),
+                'updated_at' => now(),
             ])->toArray() + ['id' => Str::ulid()];
         }
 

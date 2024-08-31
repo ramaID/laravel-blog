@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\PostsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ShowPostsPageController;
 use Illuminate\Support\Facades\Route;
@@ -19,5 +20,6 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('posts', ShowPostsPageController::class);
+Route::resource('admin/posts', PostsController::class);
 
 require __DIR__.'/auth.php';
