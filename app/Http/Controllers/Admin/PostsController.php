@@ -14,6 +14,7 @@ class PostsController extends Controller
     public function index()
     {
         $posts = Post::query()
+            ->withLastCommentedAt()
             ->paginate();
 
         return view('admin.posts.index', compact('posts'));

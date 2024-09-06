@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -33,5 +34,16 @@ class Post extends Model
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function scopeWithLastCommentedAt(Builder $query): void
+    {
+        $query->addSelect(['last_commented_at' => Comment::query()
+            ->select('created_at')
+            ->whereColumn('post_id', 'posts.id')
+            ->latest('id')
+            ->limit(1)
+        ])
+        ->withCasts(['last_commented_at' => 'datetime']);
     }
 }
